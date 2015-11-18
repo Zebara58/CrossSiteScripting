@@ -31,16 +31,18 @@ namespace CrossSiteScripting
         {
             GlobalConfiguration.Configure(WebApiConfig.Register);
             SqlCommand command;
-            SqlConnection myConnection = new SqlConnection(WebConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString);
-            try
+            using (SqlConnection myConnection = new SqlConnection(WebConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString))
             {
-                myConnection.Open();
-                command = new SqlCommand(strTsql, myConnection);
-                command.ExecuteNonQuery();
-            }
-            catch (SqlException ex)
-            {
-                MessageBox.Show("You failed!" + ex.Message);
+                try
+                {
+                    myConnection.Open();
+                    command = new SqlCommand(strTsql, myConnection);
+                    command.ExecuteNonQuery();
+                }
+                catch (SqlException ex)
+                {
+                    MessageBox.Show("You failed!" + ex.Message);
+                }
             }
         }
     }
