@@ -35,22 +35,18 @@
     <asp:Label ID="lblCookies" runat="server" Text="" CssClass="labelCookies" />
     <p id="2"></p>
     <p id="3"></p>
+    <button type="button" onclick="Button2_Click()" id="Button2">Click me to copy text above!</button>
+    <p>Select your language:
 
-    <script>
-        function getParameterByName(name) {
-            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-            var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-                results = regex.exec(location.search);
-            return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-        }
+    <select><script>
+    //This causes Javascript to be run after the page loads
+    //DOM XSS attack here!
+    document.write("<OPTION value=1>"+document.location.href.substring(document.location.href.indexOf("default=")+8)+"</OPTION>");
 
-        //DOM XSS
-        var strQs = getParameterByName('strErr4');
-        if (strQs != null)
-        {
-            document.getElementById("2").innerHTML=strQs;
-        }
-    </script>
+    document.write("<OPTION value=2>English</OPTION>");
+
+    </script></select>
+    </p>
 
 </body>
 </html>

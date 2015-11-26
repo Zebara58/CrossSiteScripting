@@ -17,6 +17,7 @@ namespace CrossSiteScripting
             string strQs, strSQL = string.Empty;
             strSQL = "SELECT * FROM dbo.[MyComments] ORDER BY ID";
 
+            //Persistent XSS attack (SQL Injection)
             if (Request.QueryString["cid"] != null)
             {
                 strQs = Request.QueryString["cid"] as string;
